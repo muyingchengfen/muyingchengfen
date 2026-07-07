@@ -1,0 +1,32 @@
+{{ define "main" }}
+<div class="page-header">
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="page-desc">{{ . }}</p>{{ end }}
+</div>
+
+<div class="posts-grid">
+    {{ range .Pages }}
+    <article class="post-card">
+        {{ with .Params.image }}<img src="{{ . }}" alt="{{ $.Title }}">{{ end }}
+        <div class="card-content">
+            <span class="category-tag">{{ with .Params.categories }}{{ index . 0 }}{{ end }}</span>
+            <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+            <p>{{ .Summary | plainify | truncate 100 }}</p>
+            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006年01月02日" }}</time>
+        </div>
+    </article>
+    {{ end }}
+</div>
+
+{{ if gt .Paginator.TotalPages 1 }}
+<nav class="pagination">
+    {{ if .Paginator.HasPrev }}
+    <a href="{{ .Paginator.Prev.URL }}" class="page-btn">← 上一页</a>
+    {{ end }}
+    <span class="page-info">{{ .Paginator.PageNumber }} / {{ .Paginator.TotalPages }}</span>
+    {{ if .Paginator.HasNext }}
+    <a href="{{ .Paginator.Next.URL }}" class="page-btn">下一页 →</a>
+    {{ end }}
+</nav>
+{{ end }}
+{{ end }}

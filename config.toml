@@ -1,0 +1,37 @@
+baseURL = "https://muyingchengfen.vercel.app/"
+languageCode = "zh-cn"
+title = "母婴成分说 - 用科学解析每一口奶粉"
+theme = ""
+paginate = 12
+enableRobotsTXT = true
+hasCJKLanguage = true
+summaryLength = 150
+
+[params]
+  description = "专业母婴产品成分解析与对比测评，帮助父母科学选择奶粉、辅食、营养品"
+  author = "母婴成分说"
+  keywords = "奶粉测评,母婴成分,奶粉对比,婴儿奶粉推荐,辅食测评,母婴产品测评"
+  
+  # 社交媒体（后期填写）
+  # wechat = ""
+  # xiaohongshu = ""
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+    ordered = false
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5

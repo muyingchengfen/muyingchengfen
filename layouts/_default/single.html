@@ -1,0 +1,66 @@
+{{ define "main" }}
+<article class="article-page">
+    <header class="article-header">
+        <span class="category-tag">{{ with .Params.categories }}{{ index . 0 }}{{ end }}</span>
+        <h1>{{ .Title }}</h1>
+        <div class="article-meta">
+            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006年01月02日" }}</time>
+            <span class="separator">·</span>
+            <span>{{ .ReadingTime }} 分钟阅读</span>
+            {{ if ne .Date .Lastmod }}
+            <span class="separator">·</span>
+            <span>更新于 {{ .Lastmod.Format "2006年01月02日" }}</span>
+            {{ end }}
+        </div>
+        {{ with .Description }}
+        <p class="article-lead">{{ . }}</p>
+        {{ end }}
+        {{ with .Params.image }}
+        <img src="{{ . }}" alt="{{ $.Title }}" class="article-cover">
+        {{ end }}
+    </header>
+
+    <!-- 目录 -->
+    {{ if .Params.toc }}
+    <aside class="toc">
+        <h3>📋 目录</h3>
+        {{ .TableOfContents }}
+    </aside>
+    {{ end }}
+
+    <!-- 正文 -->
+    <div class="article-content">
+        {{ .Content }}
+    </div>
+
+    <!-- 标签 -->
+    {{ with .Params.tags }}
+    <div class="article-tags">
+        <span>标签：</span>
+        {{ range . }}
+        <a href="{{ "tags/" | absURL }}{{ . | urlize }}/" class="tag">#{{ . }}</a>
+        {{ end }}
+    </div>
+    {{ end }}
+
+    <!-- 免责声明 -->
+    <div class="disclaimer">
+        <p><strong>免责声明：</strong>本文内容仅供参考，不构成医疗或营养建议。每个宝宝的体质不同，具体喂养方案请咨询儿科医生或专业营养师。文中涉及的成分数据来源于产品官方标注及公开文献。</p>
+    </div>
+
+    <!-- 相关文章 -->
+    <section class="related-posts">
+        <h3>📖 相关测评</h3>
+        <div class="related-grid">
+            {{ $current := . }}
+            {{ $related := (where (where .Site.RegularPages "Section" "posts") "Permalink" "!=" .Permalink) | first 3 }}
+            {{ range $related }}
+            <a href="{{ .Permalink }}" class="related-card">
+                <h4>{{ .Title }}</h4>
+                <p>{{ .Summary | plainify | truncate 60 }}</p>
+            </a>
+            {{ end }}
+        </div>
+    </section>
+</article>
+{{ end }}

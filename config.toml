@@ -1,7 +1,6 @@
 baseURL = "https://muyingchengfen.vercel.app/"
 languageCode = "zh-cn"
 title = "母婴成分说 - 用科学解析每一口奶粉"
-theme = ""
 paginate = 12
 enableRobotsTXT = true
 hasCJKLanguage = true
